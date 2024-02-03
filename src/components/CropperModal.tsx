@@ -111,7 +111,7 @@ const CropperModal = (props: TProps) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+          Crop Image
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className="d-flex flex-column justify-content-center align-items-center gap-4 bg-dark-subtle">
