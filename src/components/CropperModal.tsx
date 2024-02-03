@@ -71,9 +71,9 @@ const CropperModal = (props: TProps) => {
   const handleWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
     e.preventDefault();
     const scaleIncrement = 0.1;
-    const delta = e.deltaY < 0 ? 1 : -1; 
+    const delta = e.deltaY < 0 ? 1 : -1;
     const newScale = scale + delta * scaleIncrement;
-    setScale(Math.max(0.1, newScale)); 
+    setScale(Math.max(0.1, newScale));
   };
 
   const handleCrop = () => {
@@ -92,6 +92,15 @@ const CropperModal = (props: TProps) => {
       }
     }
   };
+
+  const handleZoomIn = () => {
+    setScale((prevScale) => Math.min(prevScale + 0.1, 2));
+  };
+
+  const handleZoomOut = () => {
+    setScale((prevScale) => Math.max(prevScale - 0.1, 0.1));
+  };
+
   return (
     <Modal
       show={show}
@@ -110,15 +119,23 @@ const CropperModal = (props: TProps) => {
           ref={canvasRef}
           width={400}
           height={400}
-          style={{ cursor:"grab"}}
+          style={{ cursor: "grab" }}
           className="border bg-white shadow border"
           onMouseDown={handleMouseDown}
           onWheel={handleWheel}
         ></canvas>
       </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={handleCrop}>Crop Image</Button>
-        <Button onClick={props.onHide} variant="secondary">Close</Button>
+      <Modal.Footer className="d-flex justify-content-between">
+        <div className="d-flex gap-2">
+          <Button onClick={handleZoomIn}>+</Button>
+          <Button onClick={handleZoomOut}>-</Button>
+        </div>
+        <div className="d-flex gap-2">
+          <Button onClick={handleCrop}>Crop Image</Button>
+          <Button onClick={props.onHide} variant="secondary">
+            Close
+          </Button>
+        </div>
       </Modal.Footer>
     </Modal>
   );
